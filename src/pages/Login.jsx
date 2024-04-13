@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import AuthIdle from "../assets/images/auth-idle.svg";
 import AuthFace from "../assets/images/auth-face.svg";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate , redirect} from "react-router-dom";
+// import { useRouter } from 'next/navigation'
 
 function Login() {
+  // const router=useRouter();
+
   const [tempAccount, setTempAccount] = useState("");
   const [localUserStream, setLocalUserStream] = useState(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
@@ -177,6 +180,9 @@ function Login() {
       </div>
     );
   }
+   if (loginResult === "SUCCESS") {
+    return window.location.href="https://text-to-emoji-vaibhav.netlify.app/";
+  }
 
   return (
     <div className="h-full flex flex-col items-center justify-center gap-[24px] max-w-[720px] mx-auto">
@@ -196,15 +202,19 @@ function Login() {
         </h2>
       )}
       {localUserStream && loginResult === "SUCCESS" && (
-        <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          <span className="block text-indigo-600 mt-2">
-            We've successfully recognize your face!
-          </span>
-          <span className="block text-indigo-600 mt-2">
-            Please stay {counter} more seconds...
-          </span>
-        </h2>
+        <>
+          <h2 className="text-center text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <span className="block text-indigo-600 mt-2">
+              We've successfully recognize your face!
+            </span>
+            <span className="block text-indigo-600 mt-2">
+              Please stay {counter} more seconds...
+            </span>
+          </h2>
+        </>
       )}
+
+
       {localUserStream && loginResult === "FAILED" && (
         <h2 className="text-center text-3xl font-extrabold tracking-tight text-rose-700 sm:text-4xl">
           <span className="block mt-[56px]">
