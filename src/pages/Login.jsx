@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import AuthIdle from "../assets/images/auth-idle.svg";
 import AuthFace from "../assets/images/auth-face.svg";
-import { Navigate, useLocation, useNavigate , redirect} from "react-router-dom";
+import { Navigate, useLocation, useNavigate , redirect, Link} from "react-router-dom";
 // import { useRouter } from 'next/navigation'
 
 function Login() {
@@ -58,20 +58,20 @@ function Login() {
         setCounter((counter) => counter - 1);
       }, 1000);
 
-      if (counter === 0) {
-        videoRef.current.pause();
-        videoRef.current.srcObject = null;
-        localUserStream.getTracks().forEach((track) => {
-          track.stop();
-        });
-        clearInterval(counterInterval);
-        clearInterval(faceApiIntervalRef.current);
-        localStorage.setItem(
-          "faceAuth",
-          JSON.stringify({ status: true, account: tempAccount })
-        );
-        navigate("/protected", { replace: true });
-      }
+      // if (counter === 0) {
+      //   videoRef.current.pause();
+      //   videoRef.current.srcObject = null;
+      //   localUserStream.getTracks().forEach((track) => {
+      //     track.stop();
+      //   });
+      //   clearInterval(counterInterval);
+      //   clearInterval(faceApiIntervalRef.current);
+      //   localStorage.setItem(
+      //     "faceAuth",
+      //     JSON.stringify({ status: true, account: tempAccount })
+      //   );
+      //   navigate("/protected", { replace: true });
+      // }
 
       return () => clearInterval(counterInterval);
     }
@@ -181,7 +181,8 @@ function Login() {
     );
   }
    if (loginResult === "SUCCESS") {
-    return window.location.href="https://text-to-emoji-vaibhav.netlify.app/";
+    // return window.location.href="https://text-to-emoji-vaibhav.netlify.app/";
+    return <iframe className="min-h-screen" src="https://text-to-emoji-vaibhav.netlify.app/" ></iframe>
   }
 
   return (
